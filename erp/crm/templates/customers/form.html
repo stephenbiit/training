@@ -1,0 +1,6 @@
+<h1>Cust Form</h1>
+
+<form method="post" action="" role="form">
+	{% csrf_token %} {{ form.as_table }}
+	<button type="submit" class="btn btn-primary">Save</button>
+</form>
