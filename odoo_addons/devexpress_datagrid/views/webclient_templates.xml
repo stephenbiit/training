@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+
+		<template id="tama_project_agile_assets_backend"
+			inherit_id="web.assets_backend" active="True">
+			<xpath expr="." position="inside">
+				<link rel="stylesheet" type="text/css"
+					href="/devexpress_datagrid/static/src/css/dx.common.css" />
+				<link rel="stylesheet" type="text/css"
+					href="/devexpress_datagrid/static/src/css/dx.light.css" />
+				<link rel="stylesheet" type="text/css"
+					href="/devexpress_datagrid/static/src/css/styles.css" />
+				<script type="text/javascript"
+					src="/devexpress_datagrid/static/src/js/dx.all.js" />
+				<script type="text/javascript"
+					src="/devexpress_datagrid/static/src/js/partners.js" />
+
+			</xpath>
+		</template>
+
+	</data>
+</odoo>

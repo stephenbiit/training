@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+
+<t t-name="devexpress_datagrid.main">
+	<div class="container">
+		<h1>Partners</h1>
+		<div id="gridContainer"/>
+	</div>
+</t>
+
+</templates>

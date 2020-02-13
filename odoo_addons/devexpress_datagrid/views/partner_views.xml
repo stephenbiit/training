@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<odoo>
+	<data>
+
+		<record id="action_devexpress_datagrid_partners"
+			model="ir.actions.client">
+			<field name="name">Partners</field>
+			<field name="tag">devexpress.datagrid.partners</field>
+			<field name="res_model">res.partner</field>
+		</record>
+
+		<menuitem id="menu_devexpress" name="DevExpress" />
+
+		<menuitem id="menu_devexpress_datagrid_partners"
+			name="Partners" parent="menu_devexpress"
+			action="action_devexpress_datagrid_partners" sequence="1" />
+
+	</data>
+</odoo>
