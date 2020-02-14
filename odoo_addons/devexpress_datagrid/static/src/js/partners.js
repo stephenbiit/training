@@ -58,87 +58,11 @@ var DevExpressDataGridPartners = AbstractAction.extend({
         })
         .then(function(result) {
             self.result = result;
-            var dataGrid = $("#gridContainer").dxDataGrid({
+            $("#gridContainer").dxDataGrid({
                 dataSource: result.partners,
-                columnsAutoWidth: true,
-                showBorders: true,
-                filterRow: {
-                    visible: true,
-                    applyFilter: "auto"
-                },
-                searchPanel: {
-                    visible: true,
-                    width: 240,
-                    placeholder: "Search..."
-                },
-                headerFilter: {
-                    visible: true
-                },
-                columns: [{
-                    dataField: "id",
-                    caption: "ID",
-                    width: 200,
-                    headerFilter: {
-                        groupInterval: 10000
-                    }
-                }, {
-                    dataField: "name",
-                    caption: "Name",
-                    width: 300,
-                    headerFilter: {
-                        groupInterval: 10000
-                    }
-                }, 
-                {
-                    dataField: "email",
-                    caption: "Email",
-                    width: 600,
-                    headerFilter: {
-                        groupInterval: 10000
-                    }
-                }]
-            }).dxDataGrid('instance');
-            
-            var applyFilterTypes = [{
-                key: "auto",
-                name: "Immediately"
-            }, {
-                key: "onClick",
-                name: "On Button Click"
-            }];
-            
-            var applyFilterModeEditor = $("#useFilterApplyButton").dxSelectBox({
-                items: applyFilterTypes,
-                value: applyFilterTypes[0].key,
-                valueExpr: "key",
-                displayExpr: "name",
-                onValueChanged: function(data) {
-                    dataGrid.option("filterRow.applyFilter", data.value);
-                }
-            }).dxSelectBox("instance");
-            
-            $("#filterRow").dxCheckBox({
-                text: "Filter Row",
-                value: true,
-                onValueChanged: function(data) {
-                    dataGrid.clearFilter();
-                    dataGrid.option("filterRow.visible", data.value);
-                    applyFilterModeEditor.option("disabled", !data.value);
-                }
+                columns: ["id", "name", "email"],
+                showBorders: true
             });
-            
-            $("#headerFilter").dxCheckBox({
-                text: "Header Filter",
-                value: true,
-                onValueChanged: function(data) {
-                    dataGrid.clearFilter();
-                    dataGrid.option("headerFilter.visible", data.value);
-                }
-            });
-            
-            function getOrderDay(rowData) {
-                return (new Date(rowData.OrderDate)).getDay();
-            }
         });
     },
     
