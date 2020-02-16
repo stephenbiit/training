@@ -15,6 +15,9 @@ var QWeb = core.qweb;
 var DevExpressDataGridPartners = AbstractAction.extend({
 	hasControlPanel: false,
     contentTemplate: 'devexpress_datagrid.main',
+    jsLibs: [
+        '/devexpress_datagrid/static/src/js/dx.all.js',
+    ],
     custom_events: _.extend({}, AbstractAction.prototype.custom_events, {
     }),
     events: {
@@ -48,22 +51,83 @@ var DevExpressDataGridPartners = AbstractAction.extend({
     
     render_partners: function(){
     	var self = this;
-    	return this._rpc({
-            route: '/api/partners',
-            params: {
-    			domain: [],
-    			offset: 0,
-    			limit: 25
+    	function isNotEmpty(value) {
+            return value !== undefined && value !== null && value !== "";
+        }
+        var store = new DevExpress.data.CustomStore({
+            key: "OrderNumber",
+            load: function (loadOptions) {
+                var deferred = $.Deferred(),
+                    args = {};
+
+                [
+                    "skip",
+                    "take",
+                    "requireTotalCount",
+                    "requireGroupCount",
+                    "sort",
+                    "filter",
+                    "totalSummary",
+                    "group",
+                    "groupSummary"
+                ].forEach(function(i) {
+                    if (i in loadOptions && isNotEmpty(loadOptions[i]))
+                        args[i] = JSON.stringify(loadOptions[i]);
+                });
+                $.ajax({
+                    url: "https://js.devexpress.com/Demos/WidgetsGalleryDataService/api/orders",
+                    dataType: "json",
+                    data: args,
+                    success: function(result) {
+                        deferred.resolve(result.data, {
+                            totalCount: result.totalCount,
+                            summary: result.summary,
+                            groupCount: result.groupCount
+                        });
+                    },
+                    error: function() {
+                        deferred.reject("Data Loading Error");
+                    },
+                    timeout: 5000
+                });
+
+                return deferred.promise();
             }
-        })
-        .then(function(result) {
-            self.result = result;
-            $("#gridContainer").dxDataGrid({
-                dataSource: result.partners,
-                columns: ["id", "name", "email"],
-                showBorders: true
-            });
         });
+
+        self.$("#gridContainer").dxDataGrid({
+            dataSource: store,
+            showBorders: true,
+            remoteOperations: true,
+            paging: {
+                pageSize: 12
+            },
+            pager: {
+                showPageSizeSelector: true,
+                allowedPageSizes: [8, 12, 20]
+            },
+            columns: [{
+                dataField: "OrderNumber",
+                dataType: "number"
+            }, {
+                dataField: "OrderDate",
+                dataType: "date"
+            }, {
+                dataField: "StoreCity",
+                dataType: "string"
+            }, {
+                dataField: "StoreState",
+                dataType: "string"
+            }, {
+                dataField: "Employee",
+                dataType: "string"
+            }, {
+                dataField: "SaleAmount",
+                dataType: "number",
+                format: "currency"
+            }]
+        }).dxDataGrid("instance");
+    	
     },
     
 });

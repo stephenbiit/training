@@ -11,8 +11,8 @@
 					href="/devexpress_datagrid/static/src/css/dx.light.css" />
 				<link rel="stylesheet" type="text/css"
 					href="/devexpress_datagrid/static/src/css/styles.css" />
-				<script type="text/javascript"
-					src="/devexpress_datagrid/static/src/js/dx.all.js" />
+				<!-- <script type="text/javascript"
+					src="/devexpress_datagrid/static/src/js/dx.all.js" /> -->
 				<script type="text/javascript"
 					src="/devexpress_datagrid/static/src/js/partners.js" />
 

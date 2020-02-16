@@ -5,7 +5,9 @@
 <t t-name="devexpress_datagrid.main">
 	<div class="container">
 		<h1>Partners</h1>
-		<div id="gridContainer"/>
+		<div id="dx-viewport">
+			<div id="gridContainer"></div>
+		</div>
 	</div>
 </t>
 
