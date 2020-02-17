@@ -55,7 +55,7 @@ var DevExpressDataGridPartners = AbstractAction.extend({
             return value !== undefined && value !== null && value !== "";
         }
         var store = new DevExpress.data.CustomStore({
-            key: "OrderNumber",
+            key: "id",
             load: function (loadOptions) {
                 var deferred = $.Deferred(),
                     args = {};
@@ -75,7 +75,7 @@ var DevExpressDataGridPartners = AbstractAction.extend({
                         args[i] = JSON.stringify(loadOptions[i]);
                 });
                 $.ajax({
-                    url: "https://js.devexpress.com/Demos/WidgetsGalleryDataService/api/orders",
+                    url: "http://localhost:8069/api/partners",
                     dataType: "json",
                     data: args,
                     success: function(result) {
@@ -98,36 +98,52 @@ var DevExpressDataGridPartners = AbstractAction.extend({
         self.$("#gridContainer").dxDataGrid({
             dataSource: store,
             showBorders: true,
+            filterRow: {
+                visible: true,
+                applyFilter: "auto"
+            },
+            searchPanel: {
+                visible: true,
+                width: 240,
+                placeholder: "Search..."
+            },
+            headerFilter: {
+                visible: true
+            },
             remoteOperations: true,
             paging: {
-                pageSize: 12
+                pageSize: 25
             },
             pager: {
                 showPageSizeSelector: true,
-                allowedPageSizes: [8, 12, 20]
+                allowedPageSizes: [25, 50, 100]
             },
             columns: [{
-                dataField: "OrderNumber",
-                dataType: "number"
-            }, {
-                dataField: "OrderDate",
-                dataType: "date"
-            }, {
-                dataField: "StoreCity",
-                dataType: "string"
-            }, {
-                dataField: "StoreState",
-                dataType: "string"
-            }, {
-                dataField: "Employee",
-                dataType: "string"
-            }, {
-                dataField: "SaleAmount",
+                dataField: "id",
                 dataType: "number",
-                format: "currency"
+                headerFilter: {
+                    allowSearch: true
+                }
+            }, {
+                dataField: "name",
+                dataType: "string",
+                headerFilter: {
+                    allowSearch: true
+                }
+            }, {
+                dataField: "mobile",
+                dataType: "string",
+                headerFilter: {
+                    allowSearch: true
+                }
+            }, {
+                dataField: "email",
+                dataType: "string",
+                headerFilter: {
+                    allowSearch: true
+                }
             }]
         }).dxDataGrid("instance");
-    	
     },
     
 });
